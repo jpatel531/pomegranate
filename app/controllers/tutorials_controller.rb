@@ -1,11 +1,5 @@
 class TutorialsController < ApplicationController
 
-	respond_to :js
-
-	def index
-		render json: {success: 200}
-	end
-
 	def new
 	end
 
@@ -20,6 +14,22 @@ class TutorialsController < ApplicationController
 	def show
 		@tutorial = Tutorial.find params[:id]
 		@tutorial.pomfile ? (render "tutorials/show") : (render "tutorials/instructions")
+	end
+
+	def steps
+		@user = User.find params[:user_id]
+		@tutorial = @user.tutorials.find params[:id]
+		step_number ||= 0
+		render json: {spec: @tutorial.step(step_number), instruction: @tutorial.pomfile[step_number]["instruction"]}
+	end
+
+	def test_runner
+		source, test = params[:source], params[:test]
+		contents = source + "\n" + test
+		File.open('tmp/test.rb', 'w') { |f| f.write contents}
+		output = `rspec tmp/test.rb -fj`
+		`rm tmp/test.rb`
+		render json: output
 	end
 
 end

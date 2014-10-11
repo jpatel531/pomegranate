@@ -12,4 +12,10 @@
  *
  *= require_tree .
  *= require_self
+ *= require codemirror
+ *= require nprogress
+ *= require nprogress-bootstrap
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";

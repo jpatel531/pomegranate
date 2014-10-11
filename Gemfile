@@ -17,6 +17,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'bootstrap-sass'
+gem 'underscore-rails'
+gem 'nprogress-rails'
 
 gem 'haml-rails'
 

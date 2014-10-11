@@ -1,3 +1,16 @@
 // Place all the styles related to the tutorials controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.failed {
+	color: red;
+}
+
+.passed {
+	color: green;
+}
+
+button.submit-code, button.next {
+	margin: 0 auto;
+	margin-top: 15px;
+}

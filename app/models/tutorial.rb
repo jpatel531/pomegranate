@@ -1,5 +1,7 @@
 class Tutorial < ActiveRecord::Base
 
+	scope :available, -> { all.select {|tutorial| tutorial.pomfile} }
+
 	belongs_to :user
 
 	def client
@@ -20,7 +22,7 @@ class Tutorial < ActiveRecord::Base
 
 	def step number
 		pom_step = pomfile[number]
-		Octokit.contents repo_full_name, 
+		client.contents repo_full_name, 
 			path: pom_step["spec"],
 			accept: "application/vnd.github-blob.raw",
 			ref: pom_step["commit"]

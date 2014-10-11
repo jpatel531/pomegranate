@@ -12,6 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require underscore
 //= require angular
+//= require nprogress
+//= require bootstrap-sprockets
+//= require codemirror
+//= require codemirror-ruby
+//= require ui-codemirror
 //= require turbolinks
 //= require_tree .
