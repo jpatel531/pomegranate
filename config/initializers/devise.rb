@@ -236,7 +236,7 @@ Devise.setup do |config|
   require 'omniauth-github'
 
 
-  config.omniauth :github, Rails.application.secrets.github_id, Rails.application.secrets.github_secret, scope: 'user,public_repo'
+  config.omniauth :github, Rails.application.secrets.github_id, Rails.application.secrets.github_secret, scope: 'user,repo'
 
   # , strategy_class: Omniauth::Strategies::Github
 

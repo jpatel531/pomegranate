@@ -1,13 +1,21 @@
+require 'octokit'
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:github]
 
+  has_many :tutorials
+
+
 	def self.from_omniauth(auth)
 	  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
 	    user.email = auth.info.email
 	    user.password = Devise.friendly_token[0,20]
+      user.avatar = auth.info.image
+      user.username = auth.info.nickname
+
 	    # user.name = auth.info.name   # assuming the user model has a name
 	    # user.image = auth.info.image # assuming the user model has an image
 	  end
@@ -19,6 +27,18 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def repos
+    client = Octokit::Client.new client_id: Rails.application.secrets.github_id, client_secret: Rails.application.secrets.github_secret
+    pages = [current_page = client.user(username).rels[:repos].get]
+    until !current_page.rels[:next]
+      pages += [current_page = current_page.rels[:next].get]
+    end
+    pages.map(&:data).flatten.map {|repo| {name: repo[:name], description: repo[:description] } }
+  end
+
+  def repos=(value)
   end
 
 
