@@ -24,8 +24,8 @@ angular.module('Pomegranate').controller 'RepoInstanceCtrl', ['$scope', '$http',
 
 	newTutorialUrl = "/users/#{userId}/tutorials"
 
-	$scope.createNewTutorial = () ->
-		$http.post(newTutorialUrl, {title: $scope.newTutorial.title, description: $scope.newTutorial.description}).success (data) ->
+	$scope.createNewTutorial = (repo) ->
+		$http.post(newTutorialUrl, {title: $scope.newTutorial.title, description: $scope.newTutorial.description, repo: repo.name}).success (data) ->
 			if data.link then window.location = data.link
 
 ]

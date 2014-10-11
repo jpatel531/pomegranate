@@ -10,7 +10,7 @@
 			%small {{repo.description}}
 
 		%div{:"ng-show" => "selectedRepo == repo"}
-			%form{name: "TutorialForm", :"ng-submit" => "TutorialForm.$valid && createNewTutorial()", novalidate: true}
+			%form{name: "TutorialForm", :"ng-submit" => "TutorialForm.$valid && createNewTutorial(selectedRepo)", novalidate: true}
 				%input{:"ng-model" => "newTutorial.title", placeholder: "Tutorial Title", required:true}
 				%input{:"ng-model" => "newTutorial.description", placeholder: "Tutorial Description", required: true}
 				%input{type: 'submit', value: "Create Tutorial"}
