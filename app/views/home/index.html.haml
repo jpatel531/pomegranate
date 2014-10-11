@@ -1,8 +1,15 @@
 .container
 
-	- @tutorials.each do |tutorial|
+	.nav-bar.nav
+		%ul
+			%li= link_to 'Dashboard', user_tutorials_path(current_user)
 
-		%div
-			%p= tutorial.title
-			%p= tutorial.description
-			%a= link_to 'Visit this tutorial', user_tutorial_path(tutorial.user, tutorial)
+	- if @tutorials.any?
+		- @tutorials.each do |tutorial|
+
+			%div
+				%p= tutorial.title
+				%p= tutorial.description
+				%a= link_to 'Visit this tutorial', user_tutorial_path(tutorial.user, tutorial)
+	- else
+		%h1 There are no tutorials to show

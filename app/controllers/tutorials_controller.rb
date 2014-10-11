@@ -3,6 +3,10 @@ class TutorialsController < ApplicationController
 	def new
 	end
 
+	def index
+		@user = User.find params[:user_id]
+	end
+
 	def create
 		user_id, title, description, repo = params[:user_id], params[:title], params[:description], params[:repo]
 		@user = User.find user_id

@@ -1,0 +1,9 @@
+.container{:"ng-controller" => "DashboardCtrl" }
+	
+	= link_to "Create A Tutorial", new_user_tutorial_path(@user)
+
+	- @user.tutorials.each do |tutorial|
+		%div
+		%p= tutorial.title
+		%p= tutorial.description
+		%a= link_to 'Visit this tutorial', user_tutorial_path(@user, tutorial)

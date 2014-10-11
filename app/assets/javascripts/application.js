@@ -19,5 +19,4 @@
 //= require codemirror
 //= require codemirror-ruby
 //= require ui-codemirror
-//= require turbolinks
 //= require_tree .
