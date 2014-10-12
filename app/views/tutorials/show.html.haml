@@ -17,12 +17,15 @@
 		%button.btn.btn-default.next.center-block{:"ng-disabled" => "!enableProgress", :"ng-click" => "goToNextStep()"} Next
 
 	.row
-		%h5 {{instruction}}
-		.results.col-md-12
-			%h5 {{results.summary_line || results.crash}}
+		.col-md-3
+		.col-md-6
+			%h5.text-center {{instruction}}
+			.results.col-md-12
+				%h5 {{results.summary_line || results.crash}}
 
-			%ul
-				%li{:"ng-repeat" => "example in results.examples", :"ng-class" => "{'failed': example.status == 'failed', 'passed': example.status == 'passed'}"}
-					{{example.full_description}}
-					%ul{:"ng-show" => "example.status == 'failed'"}
-						%li {{example.exception.class}} : {{example.exception.message}}
+				%ul
+					%li{:"ng-repeat" => "example in results.examples", :"ng-class" => "{'failed': example.status == 'failed', 'passed': example.status == 'passed'}"}
+						{{example.full_description}}
+						%ul{:"ng-show" => "example.status == 'failed'"}
+							%li {{example.exception.class}} : {{example.exception.message}}
+		.col-md-3
