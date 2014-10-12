@@ -11,9 +11,9 @@
       .modal-body
         %form{name: "TutorialForm", :"ng-submit" => "TutorialForm.$valid && createNewTutorial(selectedRepo)", novalidate: true}
           .form-group
-            %input.form-control{:"ng-model" => "newTutorial.title", placeholder: "Tutorial Title", required:true}
+            %input.form-control#tutorial-title{:"ng-model" => "newTutorial.title", placeholder: "Tutorial Title", required:true}
           .form-group
-            %input.form-control{:"ng-model" => "newTutorial.description", placeholder: "Tutorial Description", required: true}
+            %input.form-control#tutorial-description{:"ng-model" => "newTutorial.description", placeholder: "Tutorial Description", required: true}
           / %input{type: 'submit', value: "Create Tutorial"}
 
           .modal-footer

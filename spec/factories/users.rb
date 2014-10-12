@@ -5,6 +5,6 @@ FactoryGirl.define do
   	email "bla@bla.com"
   	password "12345678"
   	password_confirmation "12345678"
-  	repos [{name: "Example Repo"}]
+  	username "blarfdssdfsfds"
   end
 end
