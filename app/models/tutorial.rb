@@ -1,5 +1,7 @@
 class Tutorial < ActiveRecord::Base
 
+	validates :repo, uniqueness: true
+
 	scope :available, -> { all.select {|tutorial| tutorial.pomfile} }
 
 	belongs_to :user

@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
     until !current_page.rels[:next]
       pages += [current_page = current_page.rels[:next].get]
     end
-    pages.map(&:data).flatten.map {|repo| {name: repo[:name], description: repo[:description] } }
+    list_of_repos = pages.map(&:data).flatten.map {|repo| {name: repo[:name], description: repo[:description] } }
+    list_of_repos.reject {|repo| tutorials.any? {|tutorial| tutorial.repo == repo}}
   end
 
   def repos=(value)
