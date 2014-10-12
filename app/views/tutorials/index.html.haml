@@ -1,9 +1,16 @@
 .container{:"ng-controller" => "DashboardCtrl" }
 	
-	= link_to "Create A Tutorial", new_user_tutorial_path(@user)
+	.col-md-3
 
-	- @user.tutorials.each do |tutorial|
-		%div
-		%p= tutorial.title
-		%p= tutorial.description
-		%a= link_to 'Visit this tutorial', user_tutorial_path(@user, tutorial)
+	.col-md-6
+		= link_to "Create A Tutorial", new_user_tutorial_path(@user), class: "btn btn-default"
+
+		- @user.tutorials.each do |tutorial|
+			.panel.panel-default
+				.panel-heading
+					%h3.panel-title= tutorial.title
+				.panel-body
+					%p= tutorial.description
+					%a= link_to 'Visit this tutorial', user_tutorial_path(@user, tutorial)
+
+	.col-md-3

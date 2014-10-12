@@ -1,11 +1,19 @@
 .container
 
-	- if @tutorials.any?
-		- @tutorials.each do |tutorial|
+	.col-md-3
 
-			%div
-				%p= tutorial.title
-				%p= tutorial.description
-				%a= link_to 'Visit this tutorial', user_tutorial_path(tutorial.user, tutorial)
-	- else
-		%h1 There are no tutorials to show
+	.col-md-6
+		- if @tutorials.any?
+			- @tutorials.each do |tutorial|
+				.panel.panel-default
+					.panel-heading
+						%h3.panel-title= tutorial.title
+					.panel-body
+						%p
+							%small by
+							%small= tutorial.user.username 
+						%p= tutorial.description
+						%a= link_to 'Visit this tutorial', user_tutorial_path(tutorial.user, tutorial)
+		- else
+			%h1 There are no tutorials to show
+	.col-md-3
