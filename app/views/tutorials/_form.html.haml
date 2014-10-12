@@ -1,0 +1,21 @@
+/ Button trigger modal
+
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+          %span.sr-only Close
+        %h4#myModalLabel.modal-title Enter the name and description below.
+      .modal-body
+        %form{name: "TutorialForm", :"ng-submit" => "TutorialForm.$valid && createNewTutorial(selectedRepo)", novalidate: true}
+          .form-group
+            %input.form-control{:"ng-model" => "newTutorial.title", placeholder: "Tutorial Title", required:true}
+          .form-group
+            %input.form-control{:"ng-model" => "newTutorial.description", placeholder: "Tutorial Description", required: true}
+          / %input{type: 'submit', value: "Create Tutorial"}
+
+          .modal-footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+            %button.btn.btn-primary{:type => "submit"} Create Tutorial

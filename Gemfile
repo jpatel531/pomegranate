@@ -20,6 +20,7 @@ gem 'omniauth-github'
 gem 'bootstrap-sass'
 gem 'underscore-rails'
 gem 'nprogress-rails'
+gem 'angular-ui-bootstrap-rails'
 
 gem 'haml-rails'
 

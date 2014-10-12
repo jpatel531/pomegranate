@@ -1,16 +1,12 @@
 .container{:"ng-controller" => "TutorialsNewCtrl"}
 
-	{{newTutorial}}
+  %input{:"ng-model" => "searchRepo"}
 
-	%input{:"ng-model" => "searchRepo"}
+  %div{href:'#', :"ng-repeat" => "repo in repos | filter:searchRepo", :"ng-controller" => "RepoInstanceCtrl"} 
+    %a{href: '#', :"ng-click" => "showOptionsFor(repo)", "data-target" => "#myModal", "data-toggle" => "modal"} {{repo.name}}
+    %span
+      %small {{repo.description}}
 
-	%div{href:'#', :"ng-repeat" => "repo in repos | filter:searchRepo", :"ng-controller" => "RepoInstanceCtrl"} 
-		%a{href: '#', :"ng-click" => "showOptionsFor(repo)"} {{repo.name}}
-		%span
-			%small {{repo.description}}
+    %div{:"ng-show" => "selectedRepo == repo"}
+      = render 'form'
 
-		%div{:"ng-show" => "selectedRepo == repo"}
-			%form{name: "TutorialForm", :"ng-submit" => "TutorialForm.$valid && createNewTutorial(selectedRepo)", novalidate: true}
-				%input{:"ng-model" => "newTutorial.title", placeholder: "Tutorial Title", required:true}
-				%input{:"ng-model" => "newTutorial.description", placeholder: "Tutorial Description", required: true}
-				%input{type: 'submit', value: "Create Tutorial"}

@@ -16,6 +16,7 @@
 //= require angular
 //= require nprogress
 //= require bootstrap-sprockets
+//= require angular-ui-bootstrap
 //= require codemirror
 //= require codemirror-ruby
 //= require ui-codemirror
