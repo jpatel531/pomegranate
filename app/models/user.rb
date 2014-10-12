@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
   def repos=(value)
   end
 
+  def to_param
+    username
+  end
+
 
 
 end

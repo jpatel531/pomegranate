@@ -28,5 +28,9 @@ class Tutorial < ActiveRecord::Base
 			ref: pom_step["commit"]
 	end
 
+	def to_param
+		repo
+	end
+
 
 end

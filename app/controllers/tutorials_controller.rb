@@ -1,28 +1,31 @@
 class TutorialsController < ApplicationController
 
+	before_action :authenticate_user!
+	before_action :check_tutorial_owner, only: [:index, :create, :new]
+
 	def new
 	end
 
 	def index
-		@user = User.find params[:user_id]
+		@user = User.find_by_username params[:user_id]
 	end
 
 	def create
 		user_id, title, description, repo = params[:user_id], params[:title], params[:description], params[:repo]
-		@user = User.find user_id
+		@user = User.find_by_username user_id
 		@tutorial = @user.tutorials.create title: title, description: description, repo: repo
 		link = user_tutorial_path(@user, @tutorial)
 		render json: {link: link}.to_json
 	end
 
 	def show
-		@tutorial = Tutorial.find params[:id]
+		@tutorial = Tutorial.find_by_repo params[:id]
 		@tutorial.pomfile ? (render "tutorials/show") : (render "tutorials/instructions")
 	end
 
 	def steps
-		@user = User.find params[:user_id]
-		@tutorial = @user.tutorials.find params[:id]
+		@user = User.find_by_username params[:user_id]
+		@tutorial = @user.tutorials.find_by_repo params[:id]
 		step_number ||= 0
 		render json: {spec: @tutorial.step(step_number), instruction: @tutorial.pomfile[step_number]["instruction"]}
 	end
@@ -34,6 +37,13 @@ class TutorialsController < ApplicationController
 		output = `rspec tmp/test.rb -fj`
 		`rm tmp/test.rb`
 		render json: output
+	end
+
+	private
+
+	def check_tutorial_owner
+		@user = User.find_by_username params[:user_id]
+		redirect_to root_path if current_user != @user
 	end
 
 end
