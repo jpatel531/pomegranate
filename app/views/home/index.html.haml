@@ -1,9 +1,5 @@
 .container
 
-	.nav-bar.nav
-		%ul
-			%li= link_to 'Dashboard', user_tutorials_path(current_user)
-
 	- if @tutorials.any?
 		- @tutorials.each do |tutorial|
 

@@ -1,0 +1,24 @@
+.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{:href => "/"} Pomegranate
+    - if !user_signed_in?
+      .navbar-collapse.collapse.navbar-right
+        - if devise_mapping.omniauthable?
+          - resource_class.omniauth_providers.each do |provider|
+            = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), class: 'btn btn-default'
+            %br/
+    - else
+      %ul.nav.nav-tabs.pull-right{:role => "tablist"}
+        %li{class: ("active" if request.path == root_path)}
+          %a{:href => "/"} Home
+        %li{class: ("active" if request.path == user_tutorials_path(current_user))}
+          = link_to 'Dashboard', user_tutorials_path(current_user)
+        %li
+          / %a{:href => new_post_path} Post A Picture!
+        = content_tag(:li, link_to("Logout", destroy_user_session_path, method: :delete))
