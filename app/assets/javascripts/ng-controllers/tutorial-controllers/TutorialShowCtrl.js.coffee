@@ -15,9 +15,10 @@ angular.module('Pomegranate').controller 'TutorialShowCtrl', ['$scope', '$http',
     $scope.submitCommand = (event) ->
         NProgress.start()
         $http.post($location.absUrl() + "/test_runner", {source: $scope.source, test: $scope.test}).success (data) ->
+            console.log data
             $scope.results = data
-            $scope.enableProgress = true if data.summary.failure_count is 0
             NProgress.done()
+            $scope.enableProgress = true if !data.exception and data.summary.failure_count is 0
 
     $scope.goToNextStep = ->
         stepNumber += 1

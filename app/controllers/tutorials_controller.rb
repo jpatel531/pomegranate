@@ -20,7 +20,11 @@ class TutorialsController < ApplicationController
 
 	def show
 		@tutorial = Tutorial.find_by_repo params[:id]
-		@tutorial.pomfile ? (render "tutorials/show") : (render "tutorials/instructions")
+		if @tutorial.pomfile
+			render "tutorials/show"
+		else 
+			render "tutorials/instructions"
+		end
 	end
 
 	def steps
@@ -32,15 +36,28 @@ class TutorialsController < ApplicationController
 
 	def test_runner
 		source, test = params[:source], params[:test]
-		contents = source + "\n" + test
-		File.open('tmp/test.rb', 'w') { |f| f.write contents}
-		output = `rspec tmp/test.rb -fj`
-		`rm tmp/test.rb`
-		puts output
-		render json: output
+		exception = check_for_exceptions source
+		if exception
+			render json: {exception: exception.gsub(/ for #<(.*?)\>/, "")} 
+		else
+			contents = source + "\n" + test
+			File.open('tmp/test.rb', 'w') { |f| f.write contents}
+			output = `rspec tmp/test.rb -fj`
+			`rm tmp/test.rb`
+			render json: output
+		end
 	end
 
 	private
+
+	def check_for_exceptions file
+		begin
+			eval file
+		rescue Exception => e
+			return e.message
+		end
+		return nil
+	end
 
 	def check_tutorial_owner
 		@user = User.find_by_username params[:user_id]

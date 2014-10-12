@@ -5,6 +5,7 @@ class Tutorial < ActiveRecord::Base
 	scope :available, -> { all.select {|tutorial| tutorial.pomfile} }
 
 	belongs_to :user
+	has_many :progressions
 
 	def client
 		@client ||= Octokit::Client.new client_id: Rails.application.secrets.github_id, client_secret: Rails.application.secrets.github_secret
