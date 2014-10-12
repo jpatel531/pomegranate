@@ -26,7 +26,7 @@ class TutorialsController < ApplicationController
 	def steps
 		@user = User.find_by_username params[:user_id]
 		@tutorial = @user.tutorials.find_by_repo params[:id]
-		step_number ||= 0
+		step_number = params[:step_number].to_i || 0
 		render json: {spec: @tutorial.step(step_number), instruction: @tutorial.pomfile[step_number]["instruction"]}
 	end
 
@@ -36,6 +36,7 @@ class TutorialsController < ApplicationController
 		File.open('tmp/test.rb', 'w') { |f| f.write contents}
 		output = `rspec tmp/test.rb -fj`
 		`rm tmp/test.rb`
+		puts output
 		render json: output
 	end
 

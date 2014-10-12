@@ -14,7 +14,7 @@
 		
 	.row
 		%button.btn.btn-default.submit-code.center-block{:"ng-click" => "submitCommand($event)", :"ng-disabled" => "!source || !test"} Submit!
-		%button.btn.btn-default.next.center-block{:"ng-disabled" => "failures", :"ng-init" => "failures = true", :"ng-click" => "goToNextStep()"} Next
+		%button.btn.btn-default.next.center-block{:"ng-disabled" => "!enableProgress", :"ng-click" => "goToNextStep()"} Next
 
 	.row
 		%h5 {{instruction}}
