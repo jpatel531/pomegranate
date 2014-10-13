@@ -1,7 +1,25 @@
 .container{:"ng-controller" => "DashboardCtrl" }
 	
 	.col-md-6
-		%h3.text-center Tutorials You Have Taken
+		.col-md-2
+
+		.col-md-8
+			%h3.text-center Tutorials You Have Taken
+
+			- @user.progressions.each do |progression|
+				.panel.panel-default
+					.panel-heading
+						%h3.panel-title= progression.tutorial.title
+					.panel-body
+						%p= progression.tutorial.description
+						%p 
+						%span Finished
+						%span= progression.steps_completed
+						%span steps of
+						%span= progression.total_steps
+						%a= link_to 'Visit this tutorial', user_tutorial_path(@user, progression.tutorial)
+		.col-md-2
+
 
 	.col-md-6
 		.col-md-2

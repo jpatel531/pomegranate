@@ -21,7 +21,7 @@ class TutorialsController < ApplicationController
 	def show
 		@tutorial = Tutorial.find_by_repo params[:id]
 		if @tutorial.pomfile
-			current_user.progressions.first_or_create tutorial: @tutorial
+			progression = current_user.progressions.find_or_create_by tutorial: @tutorial
 			render "tutorials/show"
 		else 
 			render "tutorials/instructions"
