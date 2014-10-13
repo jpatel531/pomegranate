@@ -2,7 +2,7 @@ angular.module('Pomegranate').controller 'TutorialShowCtrl', ['$scope', '$http',
 
     NProgress.start()
     $http.get($location.absUrl() + "/steps").success (data) ->
-        renderStep(data)
+        if data.completed_message then ($scope.congratulations = data.completed_message) else renderStep(data)
 
     renderStep = (data)->
         $scope.test = data.spec.replace(/require (["'])(?:(?=(\\?))\2.)*?\1/, "");
@@ -17,8 +17,13 @@ angular.module('Pomegranate').controller 'TutorialShowCtrl', ['$scope', '$http',
         NProgress.start()
         $http.post($location.absUrl() + "/test_runner", {source: $scope.source, test: $scope.test, step_number: $scope.stepNumber}).success (data) ->
             $scope.results = data
-            NProgress.done()
-            $scope.enableProgress = true if !data.exception and data.summary.failure_count is 0
+            if data.tutorial_completed
+                $scope.tutorialComplete = "Congratulations, you have finished the tutorial!"
+                NProgress.done()
+            else
+                # $scope.results = data
+                NProgress.done()
+                $scope.enableProgress = true if !data.exception and data.summary.failure_count is 0
 
     $scope.goToNextStep = ->
         $scope.enableProgress = false

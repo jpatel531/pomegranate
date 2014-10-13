@@ -8,6 +8,14 @@ class Progression < ActiveRecord::Base
   	update(steps_completed: step_number)
   end
 
+  def total_steps
+  	tutorial.pomfile.count
+  end
+
+  def complete?
+  	steps_completed == total_steps
+  end
+
   private
 
   def default_values

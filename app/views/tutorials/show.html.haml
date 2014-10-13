@@ -12,9 +12,11 @@
 			.code-here
 				%ui-codemirror.code-here{:"ng-model" => "source", :"ui-codemirror-opts" => "editorOptions" }
 		
-	.row
+	.row{:"ng-hide" => "tutorialComplete"}
 		%button.btn.btn-default.submit-code.center-block{:"ng-click" => "submitCommand($event)", :"ng-disabled" => "!source || !test"} Submit!
 		%button.btn.btn-default.next.center-block{:"ng-disabled" => "!enableProgress", :"ng-click" => "goToNextStep()"} Next
+	.row{:"ng-show" => "tutorialComplete"}
+		{{tutorialComplete}}
 
 	.row
 		.col-md-3
