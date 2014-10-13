@@ -20,6 +20,7 @@
 		.col-md-3
 		.col-md-6
 			%h5.text-center {{instruction}}
+			%h3.text-center{:"ng-show" => "totalSteps"} Step {{stepNumber}} of {{totalSteps}}
 			.results.col-md-12
 				%h5 {{results.summary_line || results.exception}}
 

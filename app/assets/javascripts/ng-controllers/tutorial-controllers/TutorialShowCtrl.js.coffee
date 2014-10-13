@@ -6,9 +6,11 @@ angular.module('Pomegranate').controller 'TutorialShowCtrl', ['$scope', '$http',
 
     renderStep = (data)->
         $scope.test = data.spec.replace(/require (["'])(?:(?=(\\?))\2.)*?\1/, "");
+        $scope.source = data.source
         $scope.instruction = data.instruction
         NProgress.done()
-        $scope.stepNumber = data.step_number
+        $scope.totalSteps = data.total_steps
+        $scope.stepNumber = data.step_number + 1
 
 
     $scope.submitCommand = (event) ->
