@@ -21,6 +21,7 @@ class TutorialsController < ApplicationController
 	def show
 		@tutorial = Tutorial.find_by_repo params[:id]
 		if @tutorial.pomfile
+			current_user.progressions.first_or_create tutorial: @tutorial
 			render "tutorials/show"
 		else 
 			render "tutorials/instructions"
@@ -30,8 +31,8 @@ class TutorialsController < ApplicationController
 	def steps
 		@user = User.find_by_username params[:user_id]
 		@tutorial = @user.tutorials.find_by_repo params[:id]
-		step_number = params[:step_number].to_i || 0
-		render json: {spec: @tutorial.step(step_number), instruction: @tutorial.pomfile[step_number]["instruction"]}
+		step_number = @user.progressions.find_by_tutorial_id(@tutorial.id).steps_completed
+		render json: {step_number: step_number, spec: @tutorial.step(step_number), instruction: @tutorial.pomfile[step_number]["instruction"]}
 	end
 
 	def test_runner
@@ -44,6 +45,10 @@ class TutorialsController < ApplicationController
 			File.open('tmp/test.rb', 'w') { |f| f.write contents}
 			output = `rspec tmp/test.rb -fj`
 			`rm tmp/test.rb`
+			if JSON.parse(output)["summary"]["failure_count"] == 0
+				progression = current_user.progressions.find_by_tutorial_id Tutorial.find_by_repo(params[:id]).id
+				progression.advance_to (params[:step_number].to_i + 1)
+			end
 			render json: output
 		end
 	end
