@@ -4,7 +4,7 @@
 
   %div{href:'#', :"ng-repeat" => "repo in repos | filter:searchRepo", :"ng-controller" => "RepoInstanceCtrl"} 
     %h3
-      %a{href: '#', :"ng-click" => "showOptionsFor(repo)", "data-target" => "#myModal", "data-toggle" => "modal"} {{repo.name}}
+      %a{href: '#', :"ng-click" => "showOptionsFor(repo)", "data-target" => '#{{repo.name}}-modal', "data-toggle" => "modal"} {{repo.name}}
       %span
         %small {{repo.description}}
 
