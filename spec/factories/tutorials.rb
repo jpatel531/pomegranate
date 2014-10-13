@@ -2,5 +2,8 @@
 
 FactoryGirl.define do
   factory :tutorial do
+  	title "Ruby"
+  	description "Kata"
+  	repo "tutorial"
   end
 end
