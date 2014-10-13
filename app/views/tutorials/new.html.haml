@@ -1,11 +1,12 @@
 .container{:"ng-controller" => "TutorialsNewCtrl"}
 
-  %input{:"ng-model" => "searchRepo"}
+  %input.form-control{:"ng-model" => "searchRepo"}
 
   %div{href:'#', :"ng-repeat" => "repo in repos | filter:searchRepo", :"ng-controller" => "RepoInstanceCtrl"} 
-    %a{href: '#', :"ng-click" => "showOptionsFor(repo)", "data-target" => "#myModal", "data-toggle" => "modal"} {{repo.name}}
-    %span
-      %small {{repo.description}}
+    %h3
+      %a{href: '#', :"ng-click" => "showOptionsFor(repo)", "data-target" => "#myModal", "data-toggle" => "modal"} {{repo.name}}
+      %span
+        %small {{repo.description}}
 
     %div{:"ng-show" => "selectedRepo == repo"}
       = render 'form'
