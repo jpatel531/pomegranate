@@ -1,16 +1,21 @@
 .container
 
-	%h1 Use the pomegranate-cli gem to create tutorial steps out of your commits. Then come back here.
+	%h1 Use the pomegranate-cli gem to create tutorial steps out of your git commits. Then push and refresh this page.
 
-	%p First install the gem:
+	%p First install the command-line interface gem:
 
 	%code gem install pomegranate-cli
 
 	%p Then in the root directory of your repo, type:
 	
 	%span 
-		%code pomegranate init
+		%code $ pomegranate init
 
-	%p Then, in order, choose which files and commits you would like to be your tutorial steps. For each step, give an instruction to your students.
+	%p Then you will be shown your commits. Select those you wish to become your tutorial steps. Give an instruction to your students for each one.
 
-	%p Once your file has been written, push to Github and refresh this page.
+	%p If you wish to change your commits and/or instructions, type:
+
+	%span
+		%code $ pomegranate edit
+
+	%p Once your file has been written, push to Github and refresh this page. You should find that your repo is now an interactive tutorial.
