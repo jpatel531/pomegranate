@@ -46,12 +46,14 @@ group :test, :development do
 	gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'poltergeist'
-  # gem "selenium-webdriver"
   gem 'database_cleaner'
   gem "factory_girl_rails"
   gem "launchy"
-  # gem "codeclimate-test-reporter", require: nil
-  # gem "byebug"
+end
+
+group :production do 
+  gem 'heroku_secrets', github: 'alexpeattie/heroku_secrets'
+  gem 'rails_12factor'
 end
 
 # Use ActiveModel has_secure_password
