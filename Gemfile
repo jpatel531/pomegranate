@@ -21,7 +21,7 @@ gem 'bootstrap-sass'
 gem 'underscore-rails'
 gem 'nprogress-rails'
 gem 'angular-ui-bootstrap-rails'
-
+gem 'rspec'
 gem 'haml-rails'
 
 # Use jquery as the JavaScript library
