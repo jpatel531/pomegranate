@@ -31,9 +31,8 @@ class TutorialsController < ApplicationController
 	def steps
 		@user = User.find_by_username params[:user_id]
 		@tutorial = @user.tutorials.find_by_repo params[:id]
-		progression = @user.progressions.find_by_tutorial_id(@tutorial.id)
+		progression = current_user.progressions.find_by tutorial: @tutorial
 		step_number = (progression.complete?) ? (@tutorial.pomfile.count - 1)  : progression.steps_completed
-		# step_number = progression.steps_completed
 		last_input = progression.last_input
 		render json: {source: last_input, step_number: step_number, total_steps: progression.total_steps, spec: @tutorial.step(step_number), instruction: @tutorial.pomfile[step_number]["instruction"]}
 	end
