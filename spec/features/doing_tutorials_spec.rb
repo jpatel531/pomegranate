@@ -14,10 +14,19 @@ describe 'doing tutorials' do
 		visit "/users/#{@user.username}/tutorials/#{@tutorial.repo}"
 		sleep 5
 		find('#source-code').set "a = 1"
-		save_and_open_page
 		click_button 'Submit!'
 		sleep 5
 		expect(page).to have_content '1 example, 0 failures'
+	end
+
+	it 'fails if I fail the test', js:true do 
+		visit "/users/#{@user.username}/tutorials/#{@tutorial.repo}"
+		sleep 5
+		find('#source-code').set "a = 2"
+		click_button 'Submit!'
+		sleep 5
+		expect(page).to have_content '1 example, 1 failure'
+		expect(page).to have_content 'RSpec::Expectations::ExpectationNotMetError : expected: 1 got: 2'
 	end
 
 end

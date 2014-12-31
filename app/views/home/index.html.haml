@@ -4,6 +4,8 @@
 
 	.col-md-6
 		- if @tutorials.any?
+			%h1.text-center Available Interactive Tutorials
+
 			- @tutorials.each do |tutorial|
 				.panel.panel-default
 					.panel-heading

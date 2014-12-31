@@ -32,9 +32,18 @@ angular.module('Pomegranate').controller 'TutorialShowCtrl', ['$scope', '$http',
             renderStep(data)
 
 
-    $scope.editorOptions = {
+    $scope.sourceEditorOptions = {
         lineWrapping : true,
         lineNumbers: true,
+        mode: 'text/x-ruby',
+        matchBrackets: true,
+        indentUnit: 2
+    }
+
+    $scope.testEditorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        readOnly: 'nocursor',
         mode: 'text/x-ruby',
         matchBrackets: true,
         indentUnit: 2
